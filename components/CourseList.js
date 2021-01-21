@@ -16,10 +16,12 @@ const CourseList = ({courses}) => {
 
     return(
         <View>
+            <TermSelector terms={terms} selectedTerm={selectedTerm} 
+            setSelectedTerm = {setSelectedTerm} 
+            />
             <ScrollView>
                 <View style={styles.courseList}>
-                <TermSelector terms={terms} selectedTerm={selectedTerm} setSelectedTerm = {setSelectedTerm} />
-                {courses.map(course => <Course key={course.id} course={course} />)}
+                { termCourses.map(course => <Course key={course.id} course={course} />) }
                 </View>
             </ScrollView>
         </View>

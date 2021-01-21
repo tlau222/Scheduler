@@ -1,11 +1,18 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 
+const TermButton = ({term, setSelectedTerm, isActive}) => (
+    <TouchableOpacity style={styles[isActive ? 'termButtonActive' : 'termButton']}
+        onPress={() => setSelectedTerm(term)}>
+      <Text style={styles.termText}>{term}</Text>
+    </TouchableOpacity>
+  );
+
 const TermSelector = ({terms, selectedTerm, setSelectedTerm}) => (
     <View style={styles.termSelector}>
         { 
-        terms.map(term => (
-            <TermButton key={term} term={term} setSelectedTerm={setSelectedTerm}
+        terms.map(term => 
+            (<TermButton key={term} term={term} setSelectedTerm={setSelectedTerm}
             isActive={term === selectedTerm}
             />
         ))
@@ -13,13 +20,6 @@ const TermSelector = ({terms, selectedTerm, setSelectedTerm}) => (
     </View>
 );
 
-const TermButton = ({term, setSelectedTerm, isActive}) => (
-    <TouchableOpacity style={styles[isActive ? 'termButtonActive' : 'termButton']} 
-        onPress={() => setSelectedTerm(term)}>
-      <Text style={styles.termText}>{term}</Text>
-    </TouchableOpacity>
-  );
-  
 const termButtonBase = {
     flex: 1,
     borderRadius: 5,
@@ -30,7 +30,7 @@ const termButtonBase = {
     padding: 10,
     minWidth: 90,
     maxWidth: 90,
-};
+  };
 
 const styles = StyleSheet.create({
     termSelector: {
