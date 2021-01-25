@@ -2,13 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { getCourseNumber } from '../utils/course'
 
-// const getCourseNumber = course => (
-//     course.id.slice(1)
-//   );
-
-const Course = ({course, isDisabled, isSelected, select}) => (
-    <TouchableOpacity style={styles[isSelected ? 'courseButtonSelected' : isDisabled ? 'courseButtonDisabled' : 'courseButton']}
-    onPress={() => { if (!isDisabled) select(course); }} >
+const Course = ({course, isDisabled, isSelected, select, view}) => (
+    <TouchableOpacity 
+      style={styles[isSelected ? 'courseButtonSelected' : isDisabled ? 'courseButtonDisabled' : 'courseButton']}
+      onPress={() => { if (!isDisabled) select(course); }} 
+      onLongPress={() => view(course)} 
+    >
       <Text style={styles.courseText}>
         {`CS ${getCourseNumber(course)}\n${course.meets}`}
       </Text>
@@ -27,22 +26,24 @@ const courseButtonBase = {
   maxWidth: 90,
 }
 
-  const styles = StyleSheet.create({
-    courseButton: {
-      ...courseButtonBase,
-      backgroundColor: '#66b0ff',
-    },
-    courseText: {
-      color: '#fff',
-      fontSize: 12,
-      textAlign: 'center',
-    },
-    courseButtonSelected: {
-      color: '#004a99'
-    },
-    courseButtonDisabled: {
-      color: '#d3d3d3',
-    }
-  });
+const styles = StyleSheet.create({
+  courseButton: {
+    ...courseButtonBase,
+    backgroundColor: '#66b0ff',
+  },
+  courseButtonSelected: {
+    ...courseButtonBase,
+    backgroundColor: '#004a99',
+  },
+  courseButtonDisabled: {
+    ...courseButtonBase,
+    backgroundColor: '#d3d3d3',
+  },    
+  courseText: {
+    color: '#fff',
+    fontSize: 12,
+    textAlign: 'center',
+  },
+});
   
-  export default Course;
+export default Course;
