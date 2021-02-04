@@ -2,25 +2,23 @@ import React, { useContext, useState, useEffect } from 'react';
 import { StyleSheet, Text, SafeAreaView } from 'react-native';
 import CourseList from '../components/CourseList';
 import UserContext from '../UserContext';
-import CourseEditScreen from './CourseEditScreen';
-import { firebase } from '../firebase';
+import { firebase } from '../utils/firebase';
 
 const fixCourses = json => ({
     ...json,
     courses: Object.values(json.courses)
 });
 
+const db = firebase.database().ref();
+
 const ScheduleScreen = ({navigation}) => {
     const user = useContext(UserContext);
     const canEdit = user && user.role === 'admin';
-
     const [schedule, setSchedule] = useState({ title: '', courses: [] });
 
     const view = (course) => {
         navigation.navigate(canEdit ? 'CourseEditScreen' : 'CourseDetailScreen', { course });
     };
-
-    // const url = 'https://courses.cs.northwestern.edu/394/data/cs-courses.php';
     
     useEffect(() => {
         const db = firebase.database().ref();
